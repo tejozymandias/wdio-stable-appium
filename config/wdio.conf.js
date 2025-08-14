@@ -11,8 +11,8 @@ exports.config = {
         {
             platformName: 'Android',
             'bstack:options': {
-                deviceName: 'Google Pixel 7 Pro',
-                osVersion: '13.0',
+                deviceName: 'Samsung Galaxy S22 Ultra',
+                platformVersion: '12.0',
                 appiumVersion: '2.15.0',
                 projectName: 'ColorNote Automation',
                 buildName: 'wdio andriod build',
