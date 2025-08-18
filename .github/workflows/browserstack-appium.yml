@@ -23,5 +23,7 @@ jobs:
           node-version: '20.x'
       - name: Install dependencies
         run: npm install
+        working-directory: android
       - name: Run Appium tests on BrowserStack
         run: npm run test:browserstack
+        working-directory: android
