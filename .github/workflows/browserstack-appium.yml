@@ -31,9 +31,16 @@ jobs:
 
       - name: Create Jira Subtask
         run: |
-          DATE=$(date +'%Y-%m-%d %H:%M:%S')
           curl -X POST \
             -H "Content-Type: application/json" \
             -u ${{ secrets.JIRA_USER }}:${{ secrets.JIRA_TOKEN }} \
-            --data "{\n              \"fields\": {\n                \"project\": { \"key\": \"KAN\" },\n                \"parent\": { \"key\": \"KAN-74\" },\n                \"summary\": \"Nightly Run - $DATE\",\n                \"description\": \"Nightly regression run triggered via GitHub Actions. Full report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\",\n                \"issuetype\": { \"id\": \"10003\" }\n              }\n            }" \
+            --data "{
+              \"fields\": {
+                \"project\": { \"key\": \"KAN\" },
+                \"parent\": { \"key\": \"KAN-74\" },
+                \"summary\": \"Nightly Run - $DATE\",
+                \"description\": \"Nightly regression run triggered via GitHub Actions. Full report: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}\",
+                \"issuetype\": { \"id\": \"10003\" }
+              }
+            }" \
             https://tejendrabrowserstack.atlassian.net/rest/api/2/issue
