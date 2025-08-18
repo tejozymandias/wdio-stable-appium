@@ -14,6 +14,7 @@ jobs:
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
       BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      GITHUB_RUN_ID: ${{ github.run_id }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,3 +28,12 @@ jobs:
       - name: Run Appium tests on BrowserStack
         run: npm run test:browserstack
         working-directory: android
+
+      - name: Create Jira Subtask
+        run: |
+          DATE=$(date +'%Y-%m-%d %H:%M:%S')
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -u ${{ secrets.JIRA_USER }}:${{ secrets.JIRA_TOKEN }} \
+            --data "{\n              \"fields\": {\n                \"project\": { \"key\": \"KAN\" },\n                \"parent\": { \"key\": \"KAN-74\" },\n                \"summary\": \"Nightly Run - $DATE\",\n                \"description\": \"Nightly regression run triggered via GitHub Actions. Full report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\",\n                \"issuetype\": { \"id\": \"10003\" }\n              }\n            }" \
+            https://tejendrabrowserstack.atlassian.net/rest/api/2/issue
