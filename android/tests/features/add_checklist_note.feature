@@ -10,7 +10,8 @@ Scenario: Add a new checklist note in ColorNote
   And I click on the Add item
   And I add my Items
   And I click the next button
-  And I hit the back button to remove the keypad
+  And I add my second item and click ok
+#   And I hit the back button to remove the keypad
   And I hit the back button again to save the changes
   And I hit the back button again to navigate to the main menu
   Then I should verify the checklist name
