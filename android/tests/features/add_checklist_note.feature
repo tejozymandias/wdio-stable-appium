@@ -1,3 +1,4 @@
+@TCID_TC-3194 @checklist @smoke
 Feature: Add Checklist Note
 Background:
   Given the app is launched

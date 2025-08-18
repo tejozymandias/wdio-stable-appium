@@ -1,3 +1,4 @@
+@TCID_TC-3196 @textnote @smoke
 Feature: Add Text Note
 Background:
   Given the app is launched
